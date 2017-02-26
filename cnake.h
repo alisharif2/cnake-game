@@ -20,7 +20,6 @@ class Cnake {
   private:
     Direction locateNode(Node* base, Node* target);
     void moveNode(Node*);
-    Node* head;
     Node* tail;
   public:
     Cnake();
@@ -28,6 +27,7 @@ class Cnake {
     void updateNodes();
     void updateNodes(Node*);
     void grow();
+    Node* head;
 };
 
 #endif

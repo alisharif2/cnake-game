@@ -32,7 +32,7 @@ void Cnake::updateNodes(Node* n) {
   if(n->child == NULL) return;
   Node* child = n->child;
   moveNode(child);
-  child->d = locateNode(n, child);
+  child->d = locateNode(child, n);
   updateNodes(child);
 }
 

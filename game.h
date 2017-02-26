@@ -11,6 +11,7 @@ class Game {
     bool running = false;
     SDL_Window* mainWindow = NULL;
     SDL_Surface* screenSurface = NULL;
+    SDL_Renderer* gRenderer = NULL;
     SDL_Event e;
     Cnake* player;
   public:

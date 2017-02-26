@@ -13,9 +13,6 @@ Game::Game(const char* title) {
     SDL_DestroyWindow(mainWindow);
     SDL_Quit();
   }
-  else {
-    SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-  }
 
   screenSurface = SDL_GetWindowSurface(mainWindow);
 
@@ -52,12 +49,30 @@ bool Game::update() {
   }
 
   player->updateNodes();
+  SDL_Delay(1000);
 
   return running;
 }
 
+void Game::drawTile(int xPos, int yPos) {
+  SDL_Rect fillRect = {xPos*size, yPos*size, size, size};
+  SDL_RenderFillRect( gRenderer, &fillRect );
+}
+
 void Game::draw() {
+  SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0x00);
   SDL_RenderClear(gRenderer);
   // TODO place drawing logic here
+
+  SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );        
+
+  Node* currentNode = player->head;
+  while(true) {
+    if(currentNode == NULL) break;
+    drawTile(currentNode->xPos, currentNode->yPos);
+    currentNode = currentNode->child;
+  }
+
   SDL_RenderPresent(gRenderer);
 }
+

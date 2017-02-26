@@ -1,5 +1,4 @@
 #include "game.h"
-#include "cnake.h"
 
 Game::Game(const char* title) {
   mainWindow = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
@@ -9,6 +8,7 @@ Game::Game(const char* title) {
   }
   screenSurface = SDL_GetWindowSurface(mainWindow);
   running = true;
+  player = new Cnake();
 }
 
 Game::~Game() {
@@ -20,6 +20,8 @@ bool Game::update() {
   while(SDL_PollEvent(&e) > 0) {
     if(e.type == SDL_QUIT) running = false;
   }
+
+  player->updateNodes();
 
   return running;
 }

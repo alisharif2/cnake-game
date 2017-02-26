@@ -1,15 +1,16 @@
 #include "cnake.h"
 
 Cnake::Cnake() {
-  initNode(head, SOUTH, 4, 4);
+  head = new Node(SOUTH, 0, 4);
+  tail = head;
   grow();
   grow();
   grow();
 }
 
 Cnake::~Cnake() {
-  node* p = head->child;
-  node* n = head->child;
+  Node* p = head->child;
+  Node* n = head->child;
 
   while(true) {
     n = p->child;
@@ -27,30 +28,29 @@ void Cnake::updateNodes() {
   updateNodes(head);
 }
 
-void Cnake::updateNodes(node* n) {
+void Cnake::updateNodes(Node* n) {
   if(n->child == NULL) return;
-  node* child = n->child;
+  Node* child = n->child;
   moveNode(child);
   child->d = locateNode(n, child);
   updateNodes(child);
 }
 
 void Cnake::grow() {
-  node* newTail = (node*) malloc(sizeof(node));
-  initNode(newTail, SOUTH, tail->xPos, tail->yPos - 1);
+  Node* newTail = new Node(SOUTH, tail->xPos, tail->yPos - 1);
   tail->child = newTail;
   tail = newTail;
 }
 
-// TODO the if handling is flawed in the case where the nodes overlap
-Direction Cnake::locateNode(node* base, node* target) {
+// TODO the if handling is flawed in the case where the Nodes overlap
+Direction Cnake::locateNode(Node* base, Node* target) {
   if(target->xPos > base->xPos) return EAST;
   if(target->xPos < base->xPos) return WEST;
   if(target->yPos > base->yPos) return SOUTH;
   return NORTH;
 }
 
-void Cnake::moveNode(node* n) {
+void Cnake::moveNode(Node* n) {
   switch(n->d) {
     case NORTH:
       --n->yPos;
@@ -67,9 +67,13 @@ void Cnake::moveNode(node* n) {
   }
 }
 
-void Cnake::initNode(node* n, Direction d, int x, int y) {
-  n->d = d;
-  n->xPos = x;
-  n->yPos = y;
+Node::Node(Direction d, int xPos, int yPos) {
+  this->d = d;
+  this->xPos = xPos;
+  this->yPos = yPos;
+  this->child = NULL;
+}
+
+Node::~Node() {
 }
 

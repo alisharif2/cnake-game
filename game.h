@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <SDL2/SDL.h>
+#include "cnake.h"
 
 class Game {
   private:
@@ -11,6 +12,7 @@ class Game {
     SDL_Window* mainWindow = NULL;
     SDL_Surface* screenSurface = NULL;
     SDL_Event e;
+    Cnake* player;
   public:
     Game(const char*);
     ~Game();

@@ -6,28 +6,28 @@
 
 enum Direction {NORTH, SOUTH, EAST, WEST};
 
-typedef struct Node node;
-
-struct Node {
-  struct Node* child;
-  Direction d;
-  int xPos;
-  int yPos;
+class Node {
+  public:
+    Node(Direction d, int xPos, int yPos);
+    ~Node();
+    Direction d;
+    Node* child;
+    int xPos;
+    int yPos;
 };
 
 class Cnake {
   private:
-    Direction locateNode(node* base, node* target);
-    void initNode(node*, Direction, int, int);
-    void grow();
-    void moveNode(node*);
+    Direction locateNode(Node* base, Node* target);
+    void moveNode(Node*);
+    Node* head;
+    Node* tail;
   public:
     Cnake();
     ~Cnake();
     void updateNodes();
-    void updateNodes(node*);
-    node* head;
-    node* tail;
+    void updateNodes(Node*);
+    void grow();
 };
 
 #endif

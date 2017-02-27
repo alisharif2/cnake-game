@@ -42,6 +42,10 @@ void Cnake::grow() {
   tail = newTail;
 }
 
+void Cnake::turn(Direction d) {
+  if(d != -head->d) head->d = d;
+}
+
 // TODO the if handling is flawed in the case where the Nodes overlap
 Direction Cnake::locateNode(Node* base, Node* target) {
   if(target->xPos > base->xPos) return EAST;

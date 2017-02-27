@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-enum Direction {NORTH, SOUTH, EAST, WEST};
+enum Direction {NORTH = 1, SOUTH = -1, EAST = 2, WEST = -2};
 
 class Node {
   public:
@@ -27,6 +27,7 @@ class Cnake {
     void updateNodes();
     void updateNodes(Node*);
     void grow();
+    void turn(Direction d);
     Node* head;
 };
 

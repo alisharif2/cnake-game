@@ -33,16 +33,16 @@ bool Game::update() {
     else if(e.type == SDL_KEYDOWN) {
       switch(e.key.keysym.sym) {
         case SDLK_UP:
-          player->head->d = NORTH;
+          player->turn(NORTH);
           break;
         case SDLK_DOWN:
-          player->head->d = SOUTH;
+          player->turn(SOUTH);
           break;
         case SDLK_LEFT:
-          player->head->d = WEST;
+          player->turn(WEST);
           break;
         case SDLK_RIGHT:
-          player->head->d = EAST;
+          player->turn(EAST);
           break;
       }
     }
@@ -64,7 +64,7 @@ void Game::draw() {
   SDL_RenderClear(gRenderer);
   // TODO place drawing logic here
 
-  SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );        
+  SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
 
   Node* currentNode = player->head;
   while(true) {

@@ -59,7 +59,7 @@ bool Game::update() {
     player->grow();
   }
 
-  running = !player->isBite();
+  if(player->isBite()) running = false;
 
   SDL_Delay(100);
 

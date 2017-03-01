@@ -2,6 +2,9 @@
 #define GAME_H
 
 #include <SDL2/SDL.h>
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
 #include "cnake.h"
 
 class Game {
@@ -15,7 +18,9 @@ class Game {
     SDL_Renderer* gRenderer = NULL;
     SDL_Event e;
     Cnake* player;
+    Node* food;
     void drawTile(int, int);
+    void placeFood();
   public:
     Game(const char*);
     ~Game();

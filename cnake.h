@@ -28,6 +28,7 @@ class Cnake {
     void updateNodes(Node*);
     void grow();
     void turn(Direction d);
+    bool isBite();
     Node* head;
 };
 

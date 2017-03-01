@@ -54,6 +54,15 @@ Direction Cnake::locateNode(Node* base, Node* target) {
   return NORTH;
 }
 
+bool Cnake::isBite() {
+  Node* currentNode = head->child;
+  while(currentNode != NULL) {
+    if(currentNode->xPos == head->xPos && currentNode->yPos == head->yPos) return true;
+    currentNode = currentNode->child;
+  }
+  return false;
+}
+
 void Cnake::moveNode(Node* n) {
   switch(n->d) {
     case NORTH:

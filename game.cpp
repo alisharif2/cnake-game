@@ -16,7 +16,10 @@ Game::Game(const char* title) {
 
   screenSurface = SDL_GetWindowSurface(mainWindow);
 
+  std::srand(std::time(0));
+
   running = true;
+  food = new Node(NORTH, 3, 3);
   player = new Cnake();
 }
 
@@ -49,7 +52,16 @@ bool Game::update() {
   }
 
   player->updateNodes();
-  SDL_Delay(1000);
+
+  // Simple collision detection with food
+  if(food->xPos == player->head->xPos && food->yPos == player->head->yPos) {
+    placeFood();
+    player->grow();
+  }
+
+  running = !player->isBite();
+
+  SDL_Delay(100);
 
   return running;
 }
@@ -59,6 +71,11 @@ void Game::drawTile(int xPos, int yPos) {
   SDL_RenderFillRect( gRenderer, &fillRect );
 }
 
+void Game::placeFood() {
+  food->xPos = std::rand() % (SCREEN_WIDTH/size);
+  food->yPos = std::rand() % (SCREEN_HEIGHT/size);
+}
+
 void Game::draw() {
   SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0x00);
   SDL_RenderClear(gRenderer);
@@ -66,6 +83,11 @@ void Game::draw() {
 
   SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
 
+  // Food drawing logic
+  drawTile(food->xPos, food->yPos);
+
+  // Player drawing logic
+  // TODO move inside cnake class
   Node* currentNode = player->head;
   while(true) {
     if(currentNode == NULL) break;
